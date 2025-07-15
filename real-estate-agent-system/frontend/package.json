@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.0",
+    "next": "14.2.30",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.2.0",
@@ -20,7 +20,7 @@
     "autoprefixer": "10.4.16",
     "postcss": "8.4.31",
     "lucide-react": "0.290.0",
-    "axios": "1.5.0",
+    "axios": "1.8.2",
     "react-query": "3.39.3",
     "react-hook-form": "7.47.0",
     "react-hot-toast": "2.4.1",
