@@ -1,0 +1,164 @@
+#!/bin/bash
+
+# Real Estate Agent Marketing System - Quick Start Script
+# This script sets up the development environment and gets the system running
+# Save this as quick_start.sh and make it executable with: chmod +x quick_start.sh
+
+set -e
+
+echo "🏠 Real Estate Agent Marketing System - Quick Start"
+echo "=================================================="
+
+# Check if required tools are installed
+check_requirements() {
+    echo "📋 Checking requirements..."
+    
+    command -v docker >/dev/null 2>&1 || { echo "❌ Docker is required but not installed. Please install Docker first."; exit 1; }
+    command -v docker-compose >/dev/null 2>&1 || { echo "❌ Docker Compose is required but not installed. Please install Docker Compose first."; exit 1; }
+    command -v python3 >/dev/null 2>&1 || { echo "❌ Python 3 is required but not installed. Please install Python 3 first."; exit 1; }
+    command -v git >/dev/null 2>&1 || { echo "❌ Git is required but not installed. Please install Git first."; exit 1; }
+    
+    echo "✅ All requirements satisfied"
+}
+
+# Create project structure
+create_project_structure() {
+    echo "📁 Creating project structure..."
+    
+    mkdir -p real-estate-agent-system
+    cd real-estate-agent-system
+    
+    # Main directories
+    mkdir -p {ag2-core,api-gateway,frontend,langflow-workflows,tests,monitoring,docs,init-scripts}
+    
+    # AG2 Core structure
+    mkdir -p ag2-core/{src,tests,configs}
+    mkdir -p ag2-core/src/{agents,services,integrations,database}
+    
+    # API Gateway structure
+    mkdir -p api-gateway/{src,tests}
+    
+    # Frontend structure
+    mkdir -p frontend/{src,public,tests}
+    mkdir -p frontend/src/{components,services,pages}
+    
+    # Tests structure
+    mkdir -p tests/{unit,integration,performance}
+    
+    # Monitoring structure
+    mkdir -p monitoring/{prometheus,grafana}
+    mkdir -p monitoring/grafana/{dashboards,datasources}
+    
+    echo "✅ Project structure created"
+}
+
+# Create initial configuration files
+create_config_files() {
+    echo "⚙️  Creating configuration files..."
+    
+    # Environment file
+    cat > .env << 'EOF'
+# API Keys (REPLACE WITH YOUR ACTUAL KEYS)
+OPENAI_API_KEY=sk-your-openai-api-key-here
+FACEBOOK_ACCESS_TOKEN=your-facebook-token-here
+INSTAGRAM_ACCESS_TOKEN=your-instagram-token-here
+LINKEDIN_ACCESS_TOKEN=your-linkedin-token-here
+
+# Database Configuration
+DATABASE_URL=postgresql://realestate:password@postgres:5432/realestate_agents
+REDIS_URL=redis://redis:6379
+REDIS_PASSWORD=secure_redis_password
+
+# Security
+JWT_SECRET=your-super-secure-jwt-secret-key-here
+LANGFLOW_SECRET_KEY=your-langflow-secret-key-here
+LANGFLOW_ADMIN_PASSWORD=admin123
+
+# Service URLs
+LANGFLOW_ENDPOINT=http://langflow:7860
+AG2_ENDPOINT=http://ag2-core:8001
+
+# Monitoring
+GRAFANA_ADMIN_PASSWORD=admin123
+EOF
+
+    # AG2 Core requirements
+    cat > ag2-core/requirements.txt << 'EOF'
+ag2>=0.4.0
+openai>=1.12.0
+fastapi>=0.104.1
+uvicorn>=0.24.0
+pydantic>=2.5.0
+sqlalchemy>=2.0.23
+asyncpg>=0.29.0
+redis>=5.0.1
+celery>=5.3.4
+python-multipart>=0.0.6
+httpx>=0.25.2
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=1.0.0
+pillow>=10.1.0
+facebook-sdk>=3.1.0
+python-linkedin-v2>=1.0.0
+tweepy>=4.14.0
+beautifulsoup4>=4.12.2
+playwright>=1.40.0
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+pytest-cov>=4.1.0
+EOF
+
+    echo "✅ Configuration files created"
+}
+
+# Install dependencies and start services
+start_system() {
+    echo "🚀 Starting the system..."
+    
+    # Check if .env file has been configured
+    if grep -q "your-openai-api-key-here" .env; then
+        echo "⚠️  WARNING: Please update the API keys in .env file before running in production"
+        echo "   The system will start with mock responses for now."
+    fi
+    
+    # Start the services
+    echo "📦 Building and starting containers..."
+    docker-compose up -d --build
+    
+    echo "⏳ Waiting for services to start..."
+    sleep 30
+    
+    echo ""
+    echo "🎉 System startup complete!"
+    echo ""
+    echo "Access URLs:"
+    echo "  Frontend Dashboard: http://localhost:3000"
+    echo "  API Gateway: http://localhost:8000"
+    echo "  AG2 Core: http://localhost:8001"
+    echo "  Langflow: http://localhost:7860"
+    echo "  Grafana (Monitoring): http://localhost:3001 (admin/admin123)"
+    echo "  Prometheus: http://localhost:9090"
+    echo ""
+    echo "To stop the system: docker-compose down"
+    echo "To view logs: docker-compose logs -f"
+    echo ""
+    echo "📖 Next steps:"
+    echo "  1. Update API keys in .env file"
+    echo "  2. Test the system by adding a property at http://localhost:3000"
+    echo "  3. Check the implementation_roadmap.md for detailed next steps"
+}
+
+# Main execution
+main() {
+    echo "Starting Real Estate Agent Marketing System setup..."
+    echo ""
+    
+    check_requirements
+    create_project_structure
+    create_config_files
+    start_system
+}
+
+# Run the main function
+main "$@"

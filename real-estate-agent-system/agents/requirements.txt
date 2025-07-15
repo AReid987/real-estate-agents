@@ -1,0 +1,56 @@
+# AG2/Autogen Dependencies
+autogen-agentchat==0.4.0
+autogen-core==0.4.0
+
+# AI/LLM Dependencies
+openai==1.58.1
+anthropic==0.40.0
+langchain==0.3.12
+langchain-community==0.3.12
+langchain-openai==0.2.12
+
+# Web Scraping
+playwright==1.49.1
+beautifulsoup4==4.12.3
+requests==2.32.3
+
+# Database and ORM
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+psycopg2-binary==2.9.10
+
+# Redis for caching
+redis==5.2.1
+
+# Web Framework
+fastapi==0.115.6
+uvicorn==0.32.1
+pydantic==2.10.3
+
+# Social Media APIs
+facebook-sdk==3.1.0
+python-twitter==3.5
+linkedin-api==2.3.0
+
+# Image Processing
+Pillow==11.0.0
+opencv-python==4.10.0.84
+
+# Utilities
+python-dotenv==1.0.1
+httpx==0.28.1
+tenacity==9.0.0
+schedule==1.2.2
+
+# Security
+cryptography==44.0.0
+passlib==1.7.4
+python-jose==3.3.0
+
+# Monitoring and Logging
+structlog==24.4.0
+prometheus-client==0.21.1
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.24.0
