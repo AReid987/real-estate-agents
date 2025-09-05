@@ -6,13 +6,13 @@ autogen-core==0.4.0
 openai==1.58.1
 anthropic==0.40.0
 langchain==0.3.12
-langchain-community==0.3.12
+langchain-community==0.3.27
 langchain-openai==0.2.12
 
 # Web Scraping
 playwright==1.49.1
 beautifulsoup4==4.12.3
-requests==2.32.3
+requests==2.32.4
 
 # Database and ORM
 sqlalchemy==2.0.36
@@ -43,9 +43,9 @@ tenacity==9.0.0
 schedule==1.2.2
 
 # Security
-cryptography==44.0.0
+cryptography==44.0.1
 passlib==1.7.4
-python-jose==3.3.0
+python-jose==3.4.0
 
 # Monitoring and Logging
 structlog==24.4.0
